@@ -157,12 +157,12 @@
 			
 			for( var ci = 0; rawData != null && ci < rawData.length; ci++ ){
 				htmlSrc += ""
-					+ "<tr>"
+					+ "<tr id='" + opts.id + "_GridRow'>"
 				;
  				for( var cj = 0; colData != null && cj < colData.length; cj++ ){
 					htmlSrc += ""
 						+ "<td"
-						+ " id='gridCol_" + colData[ cj ].data + "'"
+						+ " id='" + opts.id + "_GridCol_" + colData[ cj ].data + "'"
 						+ ">"
 						+ rawData[ ci ][ colData[ cj ].data ]
 						+ "</td>"
@@ -201,6 +201,10 @@
 		var opts = $.extend({}, defaults, options);
 		
 		this.gridObj = $(this);
+		
+		if( opts.id == null ){
+			opts.id = this.gridObj.attr( 'id' );
+		}
 		
 		/**
 		 * Set Grid into Options
@@ -288,10 +292,10 @@
 				cColObj = this.gridContents.getObject().find( '#' + cKey );
 				cWidth = Math.max(
 					  hColObj.width()
-					, this.gridContents.getObject().find( '#gridCol_' + cKey ).width()
+					, this.gridContents.getObject().find( '#' + opts.id + '_GridCol_' + cKey ).width()
 				);
-				hColObj.width( cWidth + 'px' );
-				cColObj.width( cWidth + 'px' );
+				hColObj.width( cWidth );
+				cColObj.width( cWidth );
 			}
 			
 		}
@@ -314,7 +318,7 @@ $(document).ready(function() {
 			, { data : "INFO3", title : "Info 3" }
 			, { data : "INFO4", title : "Info 4" }
 			, { data : "INFO5", title : "Info 5" }
-			, { data : "ETC"  , title : "ETCaaaaaa"    }
+			, { data : "ETC"  , title : "ETC"    }
 		]
 		, headerData:[
 			[
@@ -329,7 +333,7 @@ $(document).ready(function() {
 				, { title : "Info 3",data : "INFO3", colSpan : 1, rowSpan : 1 }
 				, { title : "Info 4",data : "INFO4", colSpan : 1, rowSpan : 1 }
 				, { title : "Info 5",data : "INFO5", colSpan : 1, rowSpan : 1 }
-				, { title : "Etc"   ,data : "ETCssssss"  , colSpan : 1, rowSpan : 1 }
+				, { title : "Etc"   ,data : "ETC"  , colSpan : 1, rowSpan : 1 }
 			]
 		]
 	});
