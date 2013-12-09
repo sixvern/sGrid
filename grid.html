@@ -54,16 +54,16 @@
 					htmlSrc += ""
 						+ "<td"
 					;
-					if(  hi == headerData.length - 1 ){
+					if( headerData[ hi ][ hj ].colKey != null && headerData[ hi ][ hj ].colKey != '' ){
 						htmlSrc += ""
-							+ " id='" + headerData[ hi ][ hj ].data + "'"
+							+ " id='" + opts.id + "_GridHCol_" + headerData[ hi ][ hj ].colKey + "'"
 						;
 					}
 					htmlSrc += ""
 						+ " colSpan='" + headerData[ hi ][ hj ].colSpan + "'"
 						+ " rowSpan='" + headerData[ hi ][ hj ].rowSpan + "'"
 						+ ">"
-						+ headerData[ hi ][ hj ].title
+						+ headerData[ hi ][ hj ].colTitle
 						+ "</td>"
 					;
 				}
@@ -133,7 +133,7 @@
 		
 		this.refresh = function(){
 			
-			var rawData = opts.data;
+			var rawData = opts.rawData;
 			var colData = opts.colData;
 			
 			var htmlSrc;
@@ -147,7 +147,7 @@
 			for( var cj = 0; colData != null && cj < colData.length; cj++ ){
 				htmlSrc += ""
 					+ "<col"
-					+ " id='" + colData[ cj ].data + "'"
+					+ " id='" + opts.id + "_GridCol_" + colData[ cj ].colKey + "''"
 					+ "/>"
 				;
 			}
@@ -162,9 +162,9 @@
  				for( var cj = 0; colData != null && cj < colData.length; cj++ ){
 					htmlSrc += ""
 						+ "<td"
-						+ " id='" + opts.id + "_GridCol_" + colData[ cj ].data + "'"
+						+ " id='" + opts.id + "_GridDataCol_" + colData[ cj ].colKey + "'"
 						+ ">"
-						+ rawData[ ci ][ colData[ cj ].data ]
+						+ rawData[ ci ][ colData[ cj ].colKey ]
 						+ "</td>"
 					;
  				}
@@ -229,10 +229,10 @@
 				for( var hi = 0; colData != null && hi < colData.length; hi++ ){
 					headerData.push( 
 						{ 
-							  data : colData[ hi ].data
-							, title : colData[ hi ].title
-							, colSpan : 1
-							, rowSpan : 1
+							  colKey   : colData[ hi ].colKey
+							, colTitle : colData[ hi ].colTitle
+							, colSpan  : 1
+							, rowSpan  : 1
 						}
 					);
 				}
@@ -251,11 +251,11 @@
 		}
 		
 		this.getRawData = function(){
-			return opts.data;
+			return opts.rawData;
 		};
 		
 		this.setRawData = function( pData ){
-			opts.data = pData;
+			opts.rawData = pData;
 			this.gridContents.refresh();
 		};
 		
@@ -291,12 +291,12 @@
 			}
 			
 			for( var swi = 0; swi < colData.length; swi++ ){
-				cKey = colData[ swi ].data;
-				hColObj = this.gridHeader.getObject().find( '#' + cKey );
-				cColObj = this.gridContents.getObject().find( '#' + cKey );
+				cKey = colData[ swi ].colKey;
+				hColObj = this.gridHeader.getObject().find( '#' + opts.id + '_GridHCol_' + cKey );
+				cColObj = this.gridContents.getObject().find( '#' + opts.id + '_GridCol_' + cKey );
 				cWidth = Math.max(
 					  hColObj.width()
-					, this.gridContents.getObject().find( '#' + opts.id + '_GridCol_' + cKey ).width()
+					, this.gridContents.getObject().find( '#' + opts.id + '_GridDataCol_' + cKey ).width()
 				);
 				hColObj.width( cWidth );
 				cColObj.width( cWidth );
@@ -317,29 +317,30 @@ $(document).ready(function() {
 		  id:"test"
 		, yScrollWidth:17
 		, colData:[
-			  { data : "ID"   , title : "ID"     }
-			, { data : "NAME" , title : "Name"   }
-			, { data : "INFO1", title : "Info 1" }
-			, { data : "INFO2", title : "Info 2" }
-			, { data : "INFO3", title : "Info 3" }
-			, { data : "INFO4", title : "Info 4" }
-			, { data : "INFO5", title : "Info 5" }
-			, { data : "ETC"  , title : "ETC"    }
+			  { colKey : "ID"   , colTitle : "ID"     }
+			, { colKey : "NAME" , colTitle : "Name"   }
+			, { colKey : "INFO1", colTitle : "Info 1" }
+			, { colKey : "INFO2", colTitle : "Info 2" }
+			, { colKey : "INFO3", colTitle : "Info 3" }
+			, { colKey : "INFO4", colTitle : "Info 4" }
+			, { colKey : "INFO5", colTitle : "Info 5" }
+			, { colKey : "ETC"  , colTitle : "ETC"    }
 		]
 		, headerData:[
 			[
-				  { title : "Info" , colSpan : 2, rowSpan : 1 }
-				, { title : "Data" , colSpan : 6, rowSpan : 1 }
+				  //{ colTitle : "Info" , colSpan : 2, rowSpan : 1 }
+				  { colTitle : "ID"   , colKey : "ID"   , colSpan : 1, rowSpan : 2 }
+				, { colTitle : "Name" , colKey : "NAME" , colSpan : 1, rowSpan : 2 }
+				, { colTitle : "Data" , colSpan : 6, rowSpan : 1 }
+				
 			]
 			, [
-				  { title : "ID"    ,data : "ID"   , colSpan : 1, rowSpan : 1 }
-				, { title : "Name"  ,data : "NAME" , colSpan : 1, rowSpan : 1 }
-				, { title : "Info 1",data : "INFO1", colSpan : 1, rowSpan : 1 }
-				, { title : "Info 2",data : "INFO2", colSpan : 1, rowSpan : 1 }
-				, { title : "Info 3",data : "INFO3", colSpan : 1, rowSpan : 1 }
-				, { title : "Info 4",data : "INFO4", colSpan : 1, rowSpan : 1 }
-				, { title : "Info 5",data : "INFO5", colSpan : 1, rowSpan : 1 }
-				, { title : "Etc"   ,data : "ETC"  , colSpan : 1, rowSpan : 1 }
+				  { colTitle : "Info 1", colKey : "INFO1", colSpan : 1, rowSpan : 1 }
+				, { colTitle : "Info 2", colKey : "INFO2", colSpan : 1, rowSpan : 1 }
+				, { colTitle : "Info 3", colKey : "INFO3", colSpan : 1, rowSpan : 1 }
+				, { colTitle : "Info 4", colKey : "INFO4", colSpan : 1, rowSpan : 1 }
+				, { colTitle : "Info 5", colKey : "INFO5", colSpan : 1, rowSpan : 1 }
+				, { colTitle : "Etc"   , colKey : "ETC"  , colSpan : 1, rowSpan : 1 }
 			]
 		]
 	});
@@ -358,27 +359,27 @@ function setColumns( pInfoLen ){
 	var headerData = [];
 
 	
-	colData.push({ data : "ID"   , title : "ID"     });
-	colData.push({ data : "NAME" , title : "Name"   });
+	colData.push({ colKey : "ID"   , colTitle : "ID"     });
+	colData.push({ colKey : "NAME" , colTitle : "Name"   });
 	for( var li = 1; li <= pInfoLen; li ++ ){
-		colData.push({ data : "INFO" + li, title : "Info " + li });
+		colData.push({ colKey : "INFO" + li, colTitle : "Info " + li });
 	}
-	colData.push({ data : "ETC"  , title : "ETC"    });
+	colData.push({ colKey : "ETC"  , colTitle : "ETC"    });
 	
 	headerData.push(
 		[
-			  { title : "Info" , colSpan : 2, rowSpan : 1 }
-			, { title : "Data" , colSpan : pInfoLen+1, rowSpan : 1 }
+			  { colTitle : "Info" , colSpan : 2, rowSpan : 1 }
+			, { colTitle : "Data" , colSpan : pInfoLen+1, rowSpan : 1 }
 		]
 	);
 	headerData.push([
-		  { title : "ID"    ,data : "ID"   , colSpan : 1, rowSpan : 1 }
-		, { title : "Name"  ,data : "NAME" , colSpan : 1, rowSpan : 1 }
+		  { colTitle : "ID"    ,colKey : "ID"   , colSpan : 1, rowSpan : 1 }
+		, { colTitle : "Name"  ,colKey : "NAME" , colSpan : 1, rowSpan : 1 }
 	]);
 	for( var li = 1; li <= pInfoLen; li ++ ){
-		headerData[ 1 ].push({ title : "Info " + li,data : "INFO" + li, colSpan : 1, rowSpan : 1 });
+		headerData[ 1 ].push({ colTitle : "Info " + li,colKey : "INFO" + li, colSpan : 1, rowSpan : 1 });
 	}
-	headerData[ 1 ].push({ title : "Etc"   ,data : "ETC"  , colSpan : 1, rowSpan : 1 });
+	headerData[ 1 ].push({ colTitle : "Etc"   ,colKey : "ETC"  , colSpan : 1, rowSpan : 1 });
 	
 	
 	curGrid.setColumns( colData,headerData );
