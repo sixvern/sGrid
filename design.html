@@ -1,0 +1,197 @@
+<html>
+<head>
+<title>grid test</title>
+<style type="text/css">
+	
+div.svGrid{
+	overflow:hidden;
+}
+
+div.svGrid div.gridHeaderDiv{
+	width:100%;
+	overflow:hidden;
+}
+
+div.svGrid table.gridHeader {
+	border: solid 0px;
+}
+
+div.svGrid table.gridHeader tr{
+	background-color:yellow;
+}
+
+div.svGrid table.gridHeader tr td{
+	border: solid 0px;
+	padding: 2px 3px;
+	text-align:center;
+	vertical-align:middle;
+}
+
+
+div.svGrid div.gridContentsDiv{
+	width:100%;
+	overflow:auto;
+}
+
+div.svGrid table.gridContents {
+	border: solid 0px;
+}
+div.svGrid table.gridContents tr{
+	background-color:#CCCCCC;
+}
+div.svGrid table.gridContents tr td{
+	border: solid 0px;
+	padding: 2px 3px;
+}
+
+</style>
+</script>
+</head>
+<div class="svGrid" id="test" style="width: 100%; height: 300px;">
+	<div class="gridHeaderDiv" id="gridHeaderDiv" style="width: 780px;">
+		<table class="gridHeader" style="width: 600px;">
+			<tbody>
+				<tr>
+					<td rowspan="1" colspan="2">Info</td><td rowspan="1" colspan="6">Data</td>
+				</tr>
+				<tr>
+					<td id="ID" style="width: 17px;" rowspan="1" colspan="1">ID</td>
+					<td id="NAME" style="width: 73px;" rowspan="1" colspan="1">Name</td>
+					<td id="INFO1" style="width: 76px;" rowspan="1" colspan="1">Info 1</td>
+					<td id="INFO2" style="width: 76px;" rowspan="1" colspan="1">Info 2</td>
+					<td id="INFO3" style="width: 76px;" rowspan="1" colspan="1">Info 3</td>
+					<td id="INFO4" style="width: 77px;" rowspan="1" colspan="1">Info 4</td>
+					<td id="INFO5" style="width: 76px;" rowspan="1" colspan="1">Info 5</td>
+					<td id="ETCssssss" rowspan="1" colspan="1">Etc</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="gridContentsDiv" id="gridContentsDiv" style="height: 226px;">
+		<table class="gridContents">
+			<colgroup>
+				<col id="ID" style="width: 17px;">
+				<col id="NAME" style="width: 73px;">
+				<col id="INFO1" style="width: 76px;">
+				<col id="INFO2" style="width: 76px;">
+				<col id="INFO3" style="width: 76px;">
+				<col id="INFO4" style="width: 77px;">
+				<col id="INFO5" style="width: 76px;">
+				<col id="ETC" style="width: 63px;">
+			</colgroup>
+			<tbody>
+				<tr>
+					<td id="gridCol_ID">0</td>
+					<td id="gridCol_NAME">name[0]</td>
+					<td id="gridCol_INFO1">INFO1[0]</td>
+					<td id="gridCol_INFO2">INFO2[0]</td>
+					<td id="gridCol_INFO3">INFO3[0]</td>
+					<td id="gridCol_INFO4">INFO4[0]</td>
+					<td id="gridCol_INFO5">INFO5[0]</td>
+					<td id="gridCol_ETC">ETC[0]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">1</td>
+					<td id="gridCol_NAME">name[1]</td>
+					<td id="gridCol_INFO1">INFO1[1]</td>
+					<td id="gridCol_INFO2">INFO2[1]</td>
+					<td id="gridCol_INFO3">INFO3[1]</td>
+					<td id="gridCol_INFO4">INFO4[1]</td>
+					<td id="gridCol_INFO5">INFO5[1]</td>
+					<td id="gridCol_ETC">ETC[1]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">2</td>
+					<td id="gridCol_NAME">name[2]</td>
+					<td id="gridCol_INFO1">INFO1[2]</td>
+					<td id="gridCol_INFO2">INFO2[2]</td>
+					<td id="gridCol_INFO3">INFO3[2]</td>
+					<td id="gridCol_INFO4">INFO4[2]</td>
+					<td id="gridCol_INFO5">INFO5[2]</td>
+					<td id="gridCol_ETC">ETC[2]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">3</td>
+					<td id="gridCol_NAME">name[3]</td>
+					<td id="gridCol_INFO1">INFO1[3]</td>
+					<td id="gridCol_INFO2">INFO2[3]</td>
+					<td id="gridCol_INFO3">INFO3[3]</td>
+					<td id="gridCol_INFO4">INFO4[3]</td>
+					<td id="gridCol_INFO5">INFO5[3]</td>
+					<td id="gridCol_ETC">ETC[3]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">4</td>
+					<td id="gridCol_NAME">name[4]</td>
+					<td id="gridCol_INFO1">INFO1[4]</td>
+					<td id="gridCol_INFO2">INFO2[4]</td>
+					<td id="gridCol_INFO3">INFO3[4]</td>
+					<td id="gridCol_INFO4">INFO4[4]</td>
+					<td id="gridCol_INFO5">INFO5[4]</td>
+					<td id="gridCol_ETC">ETC[4]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">5</td>
+					<td id="gridCol_NAME">name[5]</td>
+					<td id="gridCol_INFO1">INFO1[5]</td>
+					<td id="gridCol_INFO2">INFO2[5]</td>
+					<td id="gridCol_INFO3">INFO3[5]</td>
+					<td id="gridCol_INFO4">INFO4[5]</td>
+					<td id="gridCol_INFO5">INFO5[5]</td>
+					<td id="gridCol_ETC">ETC[5]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">6</td>
+					<td id="gridCol_NAME">name[6]</td>
+					<td id="gridCol_INFO1">INFO1[6]</td>
+					<td id="gridCol_INFO2">INFO2[6]</td>
+					<td id="gridCol_INFO3">INFO3[6]</td>
+					<td id="gridCol_INFO4">INFO4[6]</td>
+					<td id="gridCol_INFO5">INFO5[6]</td>
+					<td id="gridCol_ETC">ETC[6]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">7</td>
+					<td id="gridCol_NAME">name[7]</td>
+					<td id="gridCol_INFO1">INFO1[7]</td>
+					<td id="gridCol_INFO2">INFO2[7]</td>
+					<td id="gridCol_INFO3">INFO3[7]</td>
+					<td id="gridCol_INFO4">INFO4[7]</td>
+					<td id="gridCol_INFO5">INFO5[7]</td>
+					<td id="gridCol_ETC">ETC[7]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">8</td>
+					<td id="gridCol_NAME">name[8]</td>
+					<td id="gridCol_INFO1">INFO1[8]</td>
+					<td id="gridCol_INFO2">INFO2[8]</td>
+					<td id="gridCol_INFO3">INFO3[8]</td>
+					<td id="gridCol_INFO4">INFO4[8]</td>
+					<td id="gridCol_INFO5">INFO5[8]</td>
+					<td id="gridCol_ETC">ETC[8]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">9</td>
+					<td id="gridCol_NAME">name[9]</td>
+					<td id="gridCol_INFO1">INFO1[9]</td>
+					<td id="gridCol_INFO2">INFO2[9]</td>
+					<td id="gridCol_INFO3">INFO3[9]</td>
+					<td id="gridCol_INFO4">INFO4[9]</td>
+					<td id="gridCol_INFO5">INFO5[9]</td>
+					<td id="gridCol_ETC">ETC[9]</td>
+				</tr>
+				<tr>
+					<td id="gridCol_ID">10</td>
+					<td id="gridCol_NAME">name[10]</td>
+					<td id="gridCol_INFO1">INFO1[10]</td>
+					<td id="gridCol_INFO2">INFO2[10]</td>
+					<td id="gridCol_INFO3">INFO3[10]</td>
+					<td id="gridCol_INFO4">INFO4[10]</td>
+					<td id="gridCol_INFO5">INFO5[10]</td>
+					<td id="gridCol_ETC">ETC[10]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</html>
