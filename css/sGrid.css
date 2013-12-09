@@ -18,9 +18,13 @@ div.svGrid table.gridHeader tr{
 	background-color:yellow;
 }
 
+div.svGrid table.gridHeader col{
+	border: solid 1px #333333;
+	border-spacing:0;
+}
+
 div.svGrid table.gridHeader tr td{
 	border: solid 1px #333333;
-	padding: 2px 3px;
 	text-align:center;
 	vertical-align:middle;
 	border-spacing:0;
@@ -42,7 +46,7 @@ div.svGrid table.gridContents tr{
 }
 div.svGrid table.gridContents tr td{
 	border: solid 1px #333333;
-	padding: 2px 3px;
+	padding: 0px 2px;
 	border-spacing:0;
 }
 
