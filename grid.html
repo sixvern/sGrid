@@ -196,6 +196,7 @@
 	 */
 	$.fn.svGrid = function(options) {
 		var defaults = {
+			yScrollWidth:15
 		};
 		
 		var opts = $.extend({}, defaults, options);
@@ -280,8 +281,11 @@
 			contDivObj.height( this.gridObj.height() - headerDivObj.height() );
 			headerDivObj.find( '.gridHeader' ).width( contDivObj.find( '.gridContents' ).width() );
 			
-			if( contDivObj.height() < contDivObj[ 0 ].scrollHeight ){
-				headerDivObj.width( this.gridObj.width() - 15 );
+			if( 
+				   contDivObj.height() < contDivObj[ 0 ].scrollHeight 
+				&& contDivObj.width() < contDivObj[ 0 ].scrollWidth
+			){
+				headerDivObj.width( this.gridObj.width() - opts.yScrollWidth );
 			}else{
 				headerDivObj.width( this.gridObj.width() );
 			}
@@ -310,7 +314,9 @@
 
 $(document).ready(function() {
 	curGrid = $("#test").svGrid({
-		colData:[
+		  id:"test"
+		, yScrollWidth:17
+		, colData:[
 			  { data : "ID"   , title : "ID"     }
 			, { data : "NAME" , title : "Name"   }
 			, { data : "INFO1", title : "Info 1" }
