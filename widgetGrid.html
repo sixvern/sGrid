@@ -262,116 +262,125 @@
 	};
 	
 	$.widget( 
+		  /**
+		   * Widget Name
+		   */
 		  "ui.sGrid"
+		  /**
+		   * Widget Default Options
+		   */
 		, {
-		options:{
-			yScrollWidth:15
+				options:{
+				yScrollWidth:15
+			}
+			, _init: function() {
+				
+				//var opts = $.extend({}, defaults, options);
+				
+				if( this.options.id == null ){
+					this.options.id = this.element.attr( 'id' );
+				}
+				
+				/**
+				 * Set Grid into Options
+				 */
+				this.options.gridObj = $(this.element);
+				
+				/**
+				 * Set Prototype into Options
+				 */
+				this.options.grid = this;
+				
+				this.options.gridObj.empty();
+				
+				if( this.options.headerData == null ){
+					var headerData = [];
+					var colData = this.options.colData;
+					for( var hi = 0; colData != null && hi < colData.length; hi++ ){
+						headerData.push( 
+							{ 
+								  data : colData[ hi ].data
+								, title : colData[ hi ].title
+								, colSpan : 1
+								, rowSpan : 1
+							}
+						);
+					}
+					this.options.headerData = [headerData];
+				}
+				
+				/**
+				 * Grid Header Init
+				 */
+				$(document.createElement("div")).svGridHeader( this.options );
+				/**
+				 * Grid Contents Init
+				 */
+				$(document.createElement("div")).svGridContents( this.options );
+				
+				this.syncSize = function(){
+					var colData = this.options.colData;
+					
+					var cKey;
+					var hColObj;
+					var cColObj;
+					var cWidth;
+					
+					var headerDivObj = this.gridHeader.getObject();
+					var contDivObj = this.gridContents.getObject();
+					
+					contDivObj.height( this.options.gridObj.height() - headerDivObj.height() );
+					headerDivObj.find( '.gridHeader' ).width( contDivObj.find( '.gridContents' ).width() );
+					
+					if( 
+						   contDivObj.height() < contDivObj[ 0 ].scrollHeight 
+						&& contDivObj.width() < contDivObj[ 0 ].scrollWidth
+					){
+						headerDivObj.width( this.options.gridObj.width() - opts.yScrollWidth );
+					}else{
+						headerDivObj.width( this.options.gridObj.width() );
+					}
+					
+					for( var swi = 0; swi < colData.length; swi++ ){
+						cKey = colData[ swi ].data;
+						hColObj = this.gridHeader.getObject().find( '#' + cKey );
+						cColObj = this.gridContents.getObject().find( '#' + cKey );
+						cWidth = Math.max(
+							  hColObj.width()
+							, this.gridContents.getObject().find( '#' + this.options.id + '_GridCol_' + cKey ).width()
+						);
+						hColObj.width( cWidth );
+						cColObj.width( cWidth );
+					}
+				}
+				
+				this.getRawData = function(){
+					return this.options.data;
+				};
+				
+				this.setRawData = function( pData ){
+					this.options.data = pData;
+					this.gridContents.refresh();
+				};
+				
+				this.setColumns = function( pCOlProp ){
+					/*
+					pColProp, pHeaderProp
+					*/
+					this.options.colData = pCOlProp.colData;
+					this.options.headerData = pCOlProp.headerData;
+					
+					this.gridHeader.refresh();
+					this.gridContents.refresh();
+				}
+				
+				
+				
+				this.syncSize();
+				
+			}
 		}
-		, _init: function() {
-			
-			//var opts = $.extend({}, defaults, options);
-			
-			if( this.options.id == null ){
-				this.options.id = this.element.attr( 'id' );
-			}
-			
-			/**
-			 * Set Grid into Options
-			 */
-			this.options.gridObj = $(this.element);
-			
-			/**
-			 * Set Prototype into Options
-			 */
-			this.options.grid = this;
-			
-			this.options.gridObj.empty();
-			
-			if( this.options.headerData == null ){
-				var headerData = [];
-				var colData = this.options.colData;
-				for( var hi = 0; colData != null && hi < colData.length; hi++ ){
-					headerData.push( 
-						{ 
-							  data : colData[ hi ].data
-							, title : colData[ hi ].title
-							, colSpan : 1
-							, rowSpan : 1
-						}
-					);
-				}
-				this.options.headerData = [headerData];
-			}
-			
-			/**
-			 * Grid Header Init
-			 */
-			$(document.createElement("div")).svGridHeader( this.options );
-			/**
-			 * Grid Contents Init
-			 */
-			$(document.createElement("div")).svGridContents( this.options );
-			
-			this.syncSize = function(){
-				var colData = this.options.colData;
-				
-				var cKey;
-				var hColObj;
-				var cColObj;
-				var cWidth;
-				
-				var headerDivObj = this.gridHeader.getObject();
-				var contDivObj = this.gridContents.getObject();
-				
-				contDivObj.height( this.options.gridObj.height() - headerDivObj.height() );
-				headerDivObj.find( '.gridHeader' ).width( contDivObj.find( '.gridContents' ).width() );
-				
-				if( 
-					   contDivObj.height() < contDivObj[ 0 ].scrollHeight 
-					&& contDivObj.width() < contDivObj[ 0 ].scrollWidth
-				){
-					headerDivObj.width( this.options.gridObj.width() - opts.yScrollWidth );
-				}else{
-					headerDivObj.width( this.options.gridObj.width() );
-				}
-				
-				for( var swi = 0; swi < colData.length; swi++ ){
-					cKey = colData[ swi ].data;
-					hColObj = this.gridHeader.getObject().find( '#' + cKey );
-					cColObj = this.gridContents.getObject().find( '#' + cKey );
-					cWidth = Math.max(
-						  hColObj.width()
-						, this.gridContents.getObject().find( '#' + this.options.id + '_GridCol_' + cKey ).width()
-					);
-					hColObj.width( cWidth );
-					cColObj.width( cWidth );
-				}
-			}
-			
-			this.getRawData = function(){
-				return this.options.data;
-			};
-			
-			this.setRawData = function( pData ){
-				this.options.data = pData;
-				this.gridContents.refresh();
-			};
-			
-			this.setColumns = function( pColProp, pHeaderProp ){
-				
-				this.options.colData = pColProp;
-				this.options.headerData = pHeaderProp;
-				
-				this.gridHeader.refresh();
-				this.gridContents.refresh();
-			}
-			
-			
-			
-			this.syncSize();
-			
-		}
-	});
+	);
 	
 })(jQuery);
 
@@ -478,8 +487,14 @@ function setColumns( pInfoLen ){
 	headerData[ 1 ].push({ title : "Etc"   ,data : "ETC"  , colSpan : 1, rowSpan : 1 });
 	
 	
-	curGrid.setColumns( colData,headerData );
-	
+	//curGrid.setColumns( colData,headerData );
+	$("#test").sGrid(
+		  'setColumns'
+		, {
+			  colData:colData
+			, headerData:headerData
+		}
+	);
 }
 
 function setData( pDataLen ){
@@ -504,11 +519,9 @@ function setData( pDataLen ){
 	
 	
 	//curGrid.setRawData( addData );
-	//$("#test").setRawData( addData );
-	
 	$("#test").sGrid(
-	'setRawData'
-	, addData
+		  'setRawData'
+		, addData
 	);
 	
 }
